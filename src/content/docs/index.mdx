@@ -1,0 +1,58 @@
+---
+title: ようこそ
+description: 日本人 Community によって作成された AWS CDK へコントリビュートするまでの流れを体験できるワークショップです。
+---
+
+import { Tabs, TabItem, FileTree, Steps } from "@astrojs/starlight/components";
+
+AWS CDK Workshop へようこそ！
+
+このようにコードを書いたり
+
+```ts
+// lib/my-app-stack.ts
+export class MyAppStack {
+  constructor(scope: Construct, id: string, props: StackProps) {
+    super(scope, id);
+
+    new Bucket(this, "Bucket", {
+      removalPolicy: RemovalPolicy.RETAIN,
+      autoDeleteObjects: true,
+    });
+  }
+}
+```
+
+このように diff を表示したり
+
+```diff lang="ts"
+// lib/my-app-stack.ts
+export class MyAppStack {
+  constructor(scope: Construct, id: string, props: StackProps) {
+    super(scope, id);
+
+    new Bucket(this, "Bucket", {
+-     removalPolicy: RemovalPolicy.RETAIN,
++     removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+    });
+  }
+}
+```
+
+ファイルツリーを表示したりできます。
+
+<FileTree>
+
+- bin/
+  - my-app.ts
+- lib/
+  - my-app-stack.ts
+- node_modules/
+- cdk.json
+- package.json
+
+</FileTree>
+
+詳しくは以下のドキュメントを参照してください。  
+https://starlight.astro.build/ja/guides/pages/
