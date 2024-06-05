@@ -44,25 +44,24 @@ $ cdk bootstrap aws://123456789012/ap-northeast-1
 ```sh
 cd infrastructure
 npm install
-npx cdk deploy
+npx cdk deploy --require-approval never
 ```
 
 ### EC2へのアクセス
 
 [AWSコンソールのEC2管理画面](https://ap-northeast-1.console.aws.amazon.com/ec2/home?region=ap-northeast-1#Instances:instanceState=running)にアクセスし、EC2インスタンスにEIC Endpointを経由して接続します
 
-Instance名を選択 > Connect > EC2 Instance Connect > Connect using EC2 Instance Connect Endpoint > Connect
+Instance IDを選択 > Connect > EC2 Instance Connect > Connect using EC2 Instance Connect Endpoint > Connect
 
 以下の画面が表示されればOKです。
 
-
+![EC2コンソール画面](../../../assets/ec2-console.png)
 
 ### VSCode Serverへのブラウザアクセスの確立
 
-- EC2上で以下コマンドを実行します
+EC2上で以下のコマンドを実行し、VSCode Serverを起動します。
 
 ```sh
-# VSCode Serverを起動
 $ code tunnel
 *
 * Visual Studio Code Server
@@ -75,9 +74,11 @@ $ code tunnel
 To grant access to the server, please log into https://github.com/login/device and use code 77BE-3128
 ```
 
-- ブラウザで[https://github.com/login/device](https://github.com/login/device)にアクセスし、コードを入力
-  - 上記の例では'77BE-3128'を入力 > Continue > Continue > Authorize-Visual-Studio-Code
-- EC2に戻り、表示されたURLをコピーしてブラウザで開きます
+続いて、ブラウザで[https://github.com/login/device](https://github.com/login/device)にアクセスし、コードを入力し認証を完了させます。
+
+- 上記の例では'77BE-3128'を入力 > Continue > Continue > Authorize-Visual-Studio-Code
+
+EC2に戻り、以下のように表示されたURLをブラウザで開きます。
 
 ```sh
 [2024-05-24 11:44:59] info Creating tunnel with the name: ip-10-0-0-26ap-north
@@ -85,6 +86,8 @@ To grant access to the server, please log into https://github.com/login/device a
 Open this link in your browser https://vscode.dev/tunnel/ip-10-0-0-26ap-north
 ```
 
-- VSCodeが開くので、「このトンネルを開始するために使用したアカウントの種類は何ですか？」でGitHubを選択
-  - 再度GitHubへのログインが要求されるかも
-- ターミナルを開いてCDKリポジトリをcloneしましょう
+VSCodeが開くので、「このトンネルを開始するために使用したアカウントの種類は何ですか？」でGitHubを選択します。
+
+ターミナルを開けば準備完了です。
+
+![VSCode画面](../../../assets/vscode.png)
