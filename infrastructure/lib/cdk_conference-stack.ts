@@ -25,11 +25,21 @@ export class CdkConferenceStack extends cdk.Stack {
     const instance = new PreinstalledAmazonLinuxInstance(this, "Instance", {
       vpc,
       instanceType: cdk.aws_ec2.InstanceType.of(
-        cdk.aws_ec2.InstanceClass.M5A,
+        cdk.aws_ec2.InstanceClass.C7G,
         cdk.aws_ec2.InstanceSize.XLARGE2
       ),
+      blockDevices: [
+        {
+          deviceName: "/dev/xvda",
+          volume: cdk.aws_ec2.BlockDeviceVolume.ebs(100, {
+            deleteOnTermination: true,
+            encrypted: false,
+          }),
+        },
+      ],
       machineImage: new cdk.aws_ec2.AmazonLinuxImage({
         generation: cdk.aws_ec2.AmazonLinuxGeneration.AMAZON_LINUX_2023,
+        cpuType: cdk.aws_ec2.AmazonLinuxCpuType.ARM_64,
       }),
       vpcSubnets: {
         subnetType: cdk.aws_ec2.SubnetType.PUBLIC,
@@ -44,7 +54,8 @@ export class CdkConferenceStack extends cdk.Stack {
     });
 
     instance.addUserData(
-      "npm install -g yarn"
+      "npm install -g yarn",
+      "sudo dnf groupinstall -y 'Development Tools'",
     );
 
     const eicEndpoint = new ocf.aws_ec2.InstanceConnectEndpoint(
