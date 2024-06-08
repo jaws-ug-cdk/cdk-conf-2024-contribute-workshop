@@ -5,6 +5,7 @@ import {
   PreinstalledAmazonLinuxInstance,
   PreinstalledSoftwarePackage,
 } from "cdk-preinstalled-amazon-linux-ec2";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 export class CdkConferenceStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -30,8 +31,9 @@ export class CdkConferenceStack extends cdk.Stack {
       ),
       blockDevices: [
         {
+          // Attach as a root device
           deviceName: "/dev/xvda",
-          volume: cdk.aws_ec2.BlockDeviceVolume.ebs(100, {
+          volume: cdk.aws_ec2.BlockDeviceVolume.ebs(30, {
             deleteOnTermination: true,
             encrypted: false,
           }),
@@ -54,8 +56,24 @@ export class CdkConferenceStack extends cdk.Stack {
     });
 
     instance.addUserData(
-      "npm install -g yarn",
+      "npm install -g yarn aws-cdk",
+      // Install make and other build tools for setup of CDK
       "sudo dnf groupinstall -y 'Development Tools'",
+      // To bootstrap CDK, we need to know the account ID
+      "TOKEN=$(curl -X PUT 'http://169.254.169.254/latest/api/token' -H 'X-aws-ec2-metadata-token-ttl-seconds: 21600')",
+      "ACCOUNT_ID=$(curl -s -H 'X-aws-ec2-metadata-token: $TOKEN' 'http://169.254.169.254/latest/dynamic/instance-identity/document' | grep accountId | awk -F\" '{print $4}')",
+      // Bootstrap CDK for executing integ tests
+      "cdk bootstrap aws://$ACCOUNT_ID/us-east-1",
+      "code tunnel service install",
+      "sudo loginctl enable-linger $USER",
+    );
+
+    // TODO Temporarily grant full permissions. Restrict to appropriate permissions if time allows.
+    instance.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ["*"],
+        resources: ["*"],
+      })
     );
 
     const eicEndpoint = new ocf.aws_ec2.InstanceConnectEndpoint(
@@ -66,7 +84,7 @@ export class CdkConferenceStack extends cdk.Stack {
       }
     );
 
-    // EIC Endpoint -> EC2 InstanceへのSecurity Groupの穴あけ
+    // Opening Security Group from EIC Endpoint to EC2 Instance
     eicEndpoint.connections.allowTo(instance, cdk.aws_ec2.Port.tcp(22));
   }
 }
