@@ -49,7 +49,7 @@ npx cdk deploy --require-approval never
 
 ### EC2へのアクセス
 
-[AWSコンソールのEC2管理画面](https://ap-northeast-1.console.aws.amazon.com/ec2/home?region=ap-northeast-1#Instances:instanceState=running)にアクセスし、EC2インスタンスにEIC Endpointを経由して接続します
+[AWSコンソールのEC2管理画面](https://console.aws.amazon.com/ec2/home#Instances:instanceState=running)にアクセスし、EC2インスタンスにEIC Endpointを経由して接続します
 
 Instance IDを選択 > Connect > EC2 Instance Connect > Connect using EC2 Instance Connect Endpoint > Connect
 
