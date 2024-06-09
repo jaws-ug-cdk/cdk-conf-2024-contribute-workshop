@@ -3,7 +3,11 @@ title: ようこそ
 description: 日本人 Community によって作成された AWS CDK へコントリビュートするまでの流れを体験できるワークショップです。
 ---
 
-import { Tabs, TabItem, FileTree, Steps } from "@astrojs/starlight/components";
+## ここにワークショップ全体の概要などを書く
+
+※ワークショップ終了後にスタック削除するところまで書く
+
+import { Tabs, TabItem, FileTree, Steps } from '@astrojs/starlight/components';
 
 AWS CDK Workshop へようこそ！
 
@@ -15,7 +19,7 @@ export class MyAppStack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id);
 
-    new Bucket(this, "Bucket", {
+    new Bucket(this, 'Bucket', {
       removalPolicy: RemovalPolicy.RETAIN,
       autoDeleteObjects: true,
     });
