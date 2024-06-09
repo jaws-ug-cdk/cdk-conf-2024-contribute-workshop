@@ -29,6 +29,7 @@ export class CdkConferenceStack extends cdk.Stack {
         cdk.aws_ec2.InstanceClass.C7G,
         cdk.aws_ec2.InstanceSize.XLARGE2
       ),
+      ssmSessionPermissions: true,
       blockDevices: [
         {
           // Attach as a root device
@@ -59,13 +60,10 @@ export class CdkConferenceStack extends cdk.Stack {
       "npm install -g yarn aws-cdk",
       // Install make and other build tools for setup of CDK
       "sudo dnf groupinstall -y 'Development Tools'",
-      // To bootstrap CDK, we need to know the account ID
-      "TOKEN=$(curl -X PUT 'http://169.254.169.254/latest/api/token' -H 'X-aws-ec2-metadata-token-ttl-seconds: 21600')",
-      "ACCOUNT_ID=$(curl -s -H 'X-aws-ec2-metadata-token: $TOKEN' 'http://169.254.169.254/latest/dynamic/instance-identity/document' | grep accountId | awk -F\" '{print $4}')",
-      // Bootstrap CDK for executing integ tests
-      "cdk bootstrap aws://$ACCOUNT_ID/us-east-1",
-      "code tunnel service install",
-      "sudo loginctl enable-linger $USER",
+      // Increase memory for Node.js
+      "echo 'export NODE_OPTIONS=--max-old-space-size=8192' >> /etc/profile.d/myenv.sh",
+      "chmod +x /etc/profile.d/myenv.sh",
+      "sudo loginctl enable-linger ec2-user",
     );
 
     // TODO Temporarily grant full permissions. Restrict to appropriate permissions if time allows.
