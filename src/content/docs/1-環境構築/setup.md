@@ -15,12 +15,6 @@ Create stack > With new resources (standard) > Upload a template file > Choose f
 
 およそ5分ほどでデプロイが完了します。
 
-```sh
-cd infrastructure
-npm install
-npx cdk deploy --require-approval never
-```
-
 ### EC2へのアクセス
 
 [AWSコンソールのEC2管理画面](https://console.aws.amazon.com/ec2/home#Instances:instanceState=running)にアクセスし、EC2インスタンスにEIC Endpointを経由して接続します
