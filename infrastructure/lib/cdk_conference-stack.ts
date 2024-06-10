@@ -11,7 +11,7 @@ export class CdkConferenceStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const vpc = new cdk.aws_ec2.Vpc(this, "VPC", {
+    const vpc = new cdk.aws_ec2.Vpc(this, "Vpc", {
       maxAzs: 1,
       natGateways: 0,
       subnetConfiguration: [
@@ -27,7 +27,7 @@ export class CdkConferenceStack extends cdk.Stack {
       vpc,
       instanceType: cdk.aws_ec2.InstanceType.of(
         cdk.aws_ec2.InstanceClass.C7G,
-        cdk.aws_ec2.InstanceSize.XLARGE2
+        cdk.aws_ec2.InstanceSize.XLARGE8
       ),
       ssmSessionPermissions: true,
       blockDevices: [
@@ -63,6 +63,7 @@ export class CdkConferenceStack extends cdk.Stack {
       // Increase memory for Node.js
       "echo 'export NODE_OPTIONS=--max-old-space-size=8192' >> /etc/profile.d/myenv.sh",
       "chmod +x /etc/profile.d/myenv.sh",
+      // Enable linger for ec2-user to allow running services without a user logged in
       "sudo loginctl enable-linger ec2-user",
     );
 
