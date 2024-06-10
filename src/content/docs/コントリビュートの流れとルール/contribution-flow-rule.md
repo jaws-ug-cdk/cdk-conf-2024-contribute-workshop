@@ -151,7 +151,7 @@ Pull Request (PR) を提出する際のルールを以下に示します。
 なお、以下のルールに注意してください。
 
 - `aws-sqs`などの prefix の`aws-`部分は省略する
-- α モジュールの場合の`-alpha`も省略する
+- alpha モジュールの場合の`-alpha`も省略する
   - `aws-apprunner-alpha` -> `apprunner`
 
 ### fix の場合の注意
