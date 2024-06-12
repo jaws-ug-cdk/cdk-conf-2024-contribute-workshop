@@ -33,26 +33,46 @@ description: 実際に AWS CDK にコントリビュートする際の流れや�
 
 後述しますが、機能追加のプルリクエストでは README ファイルの更新も必要です。
 
-### 更新部分のファイルの再ビルド
+### 再ビルド
 
-ソースコードを変更した場合、再度ビルドをしておく必要があります。
+ソースコードを変更した場合、後述する integration テストなどでテスト対象のモジュールを最新のコードとして実行するには再度ビルドをしておく必要があります。
 
-なお、初回のクローン時に行ったビルドコマンドは全てのモジュール・またはスコープのオプションによって`aws-cdk-lib`モジュール内のディレクトリ・ファイル全てのビルドになるため時間がかかることがあります。
+なお、初回のクローン時に行った`lerna`によるビルドは様々な処理が実行されるため、時間がかかることがあります。
 
-もちろん最初に紹介したビルドコマンドでも構わないのですが、ここではモジュールより小さい粒度の、変更したファイルのディレクトリのみをビルドする方法も紹介します。
+今回のソースコード変更で、もし TypeScript ファイルのみを変更した場合、`tsc`コマンドによって TypeScript ファイルから javascript ファイルへのトランスパイルのみを行うことでビルド時間を削減する方法もあります。
+
+**ただしこれはあくまでトランスパイルのみをするためビルドとしては不十分なケースもあるので、何か不具合などが起きたら`lerna`コマンドの方を実行するようにしましょう。**
 
 ```sh
-cd packages/aws-cdk-lib/aws-sqs
+cd packages/aws-cdk-lib
 yarn tsc
 ```
-
-こちらは、AWS CDK 特有ではなく TypeScript としてのビルド方法を適用しています。これにより、最小粒度でのビルドが可能になり、ビルド速度としては最速です。
 
 また、予め`yarn watch`コマンドを実行しておくことで、コードの変更を検知して自動でビルドすることも可能ですので、こちらもオススメです(詳細は[こちら](https://github.com/aws/aws-cdk/blob/main/CONTRIBUTING.md#yarn-watch-optional))。
 
 ```sh
 cd packages/aws-cdk-lib
 yarn watch & # runs in the background
+```
+
+他にも、`yarn build`コマンドでもビルドを行うことができます。
+
+こちらのコマンドでも`lerna`同様に様々な処理が走り、次項で説明する lint なども含めたビルドが行われます。ビルド時にまとめて lint も実行したい場合には便利です。
+
+```sh
+cd packages/aws-cdk-lib
+yarn build
+```
+
+### lint 実行
+
+コードの文法・スタイルチェックを行うために、lint を実行できます。
+
+こちらも`yarn watch`などと同じく、モジュールのルートディレクトリ(`packages/aws-cdk-lib`)で実行します。
+
+```sh
+cd packages/aws-cdk-lib
+yarn lint
 ```
 
 ### unit テスト実行
@@ -64,7 +84,13 @@ yarn watch & # runs in the background
 ```sh
 cd packages/aws-cdk-lib/aws-sqs
 yarn test
+# またはテストファイル指定 (カレントディレクトリからの相対パスではないので注意)
+yarn test aws-sqs/test/sqs.test.ts
 ```
+
+なお、テストが成功してもカバレッジが指定の値を超えていない場合エラーになりますが、テスト自体が PASS していれば Pull Request としては問題ありません。
+
+![test-01](./images/test-01.png)
 
 ### integration テスト実行
 
@@ -76,7 +102,7 @@ AWS CDK では、`integ-tests-alpha`モジュールによる、integration テ�
 cd packages/@aws-cdk-testing/framework-integ/test/aws-sqs
 # integ ファイルのビルド/トランスパイルをして、javascript ファイルを生成
 yarn tsc
-# 実際にinteg テストを実行する
+# 実際にinteg テストを実行する (カレントディレクトリからの相対パスではないので注意)
 yarn integ aws-sqs/test/integ.sqs.js # jsファイルが生成されていることを確認してから
 ```
 
