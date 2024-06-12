@@ -166,7 +166,7 @@ Pull Request (PR) を提出する際のルールを以下に示します。
 
 また基本的には、**全て小文字**にしてください。（固有名詞やプロパティ名などには大文字を使っても構いません：TLS, MySQL, `maxMessageSizeBytes`, etc...）
 
-- feat(sqs): add `maxMessageSizeBytes` property
+- feat(sqs): add `maxMessageSizeBytes` property for `Queue`
 
 ### Conventional Commits
 
