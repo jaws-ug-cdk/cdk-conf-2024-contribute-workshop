@@ -183,6 +183,10 @@ yarn test aws-sns/test/topic.test.ts
 :::note
 バリデーションコードを追加した場合は、そのバリデーションに対するテストも追加します。
 
+今回は`displayName`が100文字を超える場合はエラーを返すバリデーションを追加したとします。
+
+引数の型がstringまたはnumberの場合、Tokenが渡される可能性も考慮して、`Token.isUnresolved()`を使ったバリデーションも行います。詳しくはこちらの[ドキュメント](https://aws.amazon.com/jp/builders-flash/202406/cdk-validation/#03-01)を参照してください。
+
 ```ts {6-8}
 // aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts
 export class Topic extends TopicBase {
@@ -202,6 +206,8 @@ export class Topic extends TopicBase {
 };
 ```
 
+testでは101文字の`displayName`を設定し、Errorがthrowされることを確認します。
+
 ```ts
 // aws-cdk/packages/aws-cdk-lib/aws-sns/test/topic.test.ts
 test('throw error when displayName is too long', () => {
@@ -211,7 +217,7 @@ test('throw error when displayName is too long', () => {
     new Topic(stack, 'MyTopic', {
       displayName: 'a'.repeat(101)
     });
-  }).toThrowError('displayName must be less than 100 characters');
+  }).toThrowError('displayName must be less than 100 characters, got 101');
 });
 ```
 
@@ -247,7 +253,7 @@ class TestStack extends Stack {
 
 const app = new App();
 
-const stack = new TestStack(app, 'TestStack');
+const stack = new TestStack(app, 'DisplayNameTopicTestStack');
 
 // 統合テストの実行
 new integ.IntegTest(app, 'SnsTest', {
@@ -260,6 +266,10 @@ new integ.IntegTest(app, 'SnsTest', {
 統合テストを実行して、テストが正常に通ることを確認します。
 
 ```sh
+# Topicクラスを含めたSNSのコンストラクトを再ビルド
+cd /packages/aws-cdk-lib/aws-sns
+yarn tsc
+
 cd packages/@aws-cdk-testing/framework-integ/test/aws-sns
 # integ ファイルのビルド/トランスパイルをして、javascript ファイルを生成
 yarn tsc
@@ -304,5 +314,6 @@ const topic = new sns.Topic(this, 'Topic', {
 |Issue # (if applicable)|関連するIssue番号|Closes #1|
 |Reason for this change|変更理由|We can set a display name for an SNS topic from cloudformation, but this was not supported in the AWS CDK L2 construct.|
 |Description of changes|変更内容の詳細|Add `displayName` property to `TopicProps` and set it in the `CfnTopic` constructor.|
+|Description of how you validated changes|変更の検証方法|Added both unit and integration tests.|
 
 以上でPRの作成は完了です。おつかれさまでした！
