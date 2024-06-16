@@ -100,9 +100,11 @@ git switch -c add-sns-topic-display-name
 
 `aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts`を開き、`TopicProps`に`readonly`な`displayName`プロパティを追加します。
 
+既存のPropsに新たな引数を追加するとき、必須なものを追加すると破壊的変更になってしまうため、optionalなプロパティとして追加することに注意してください。
+
 jsdocには`displayName`プロパティの説明を[Cloudformationのドキュメント](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topic.html#cfn-sns-topic-displayname)からコピーしてきましょう。
 
-合わせて、optionalなプロパティであることを示すために`?`を付け、デフォルトの挙動を`@default`に記述します。
+また、上記の通りoptionalなプロパティであることを示すために`?`を付け、デフォルトの挙動を`@default`に記述します。
 
 ```ts {4-9}
 // aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts
@@ -110,6 +112,8 @@ export interface TopicProps {
   ..., // 既存のプロパティ
   /**
    * The display name to use for an Amazon SNS topic with SMS subscriptions.
+   *
+   * The display name must be maximum 100 characters long, including hyphens (-), underscores (_), spaces, and tabs.
    *
    * @default - no display name
    */
