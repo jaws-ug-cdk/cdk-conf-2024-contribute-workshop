@@ -310,7 +310,7 @@ const topic = new sns.Topic(this, 'Topic', {
 
 最後にPRを提出します。
 
-[PRルール](../2-コントリビュートの流れとルール/contribution-flow-rule.md#pr-ルール)に則り、以下のようなPRを作成しましょう。
+[PRルール](/2-コントリビュートの流れとルール/contribution-flow-rule/#pr-ルール)に則り、以下のようなPRを作成しましょう。
 
 |項目|内容|記入例|
 |-|-|-|
