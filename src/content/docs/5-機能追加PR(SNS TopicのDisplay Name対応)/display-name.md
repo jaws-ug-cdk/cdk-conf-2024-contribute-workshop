@@ -190,8 +190,8 @@ export class Topic extends TopicBase {
     super(scope, id, props);
 
     // displayNameが100文字を超える場合はエラー
-    if (props.displayName && props.displayName.length > 100) {
-      throw new Error('displayName must be less than 100 characters');
+    if (props.displayName && !Token.isUnresolved(props.displayName) && props.displayName.length > 100) {
+      throw new Error(`displayName must be less than 100 characters, got ${props.displayName.length}`);
     }
 
     const resource = new CfnTopic(this, 'Resource', {
