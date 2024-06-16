@@ -267,7 +267,7 @@ yarn tsc
 yarn integ aws-sns/test/integ.sns-display-name.js --update-on-failed
 ```
 
-自動でCloudformationテンプレートの作成, デプロイ及び削除が行われます。エラーなく完了すれば統合テストも完了です。
+自動でCloudformationテンプレートの作成, スタックのデプロイ及び削除が行われます。エラーなく完了すれば統合テストも完了です。
 
 作成したテストファイル及び生成されたスナップショットファイルをコミットしておきましょう。
 
