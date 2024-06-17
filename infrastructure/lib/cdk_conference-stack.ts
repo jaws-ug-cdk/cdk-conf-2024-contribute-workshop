@@ -27,7 +27,7 @@ export class CdkConferenceStack extends cdk.Stack {
       vpc,
       instanceType: cdk.aws_ec2.InstanceType.of(
         cdk.aws_ec2.InstanceClass.C7G,
-        cdk.aws_ec2.InstanceSize.XLARGE8
+        cdk.aws_ec2.InstanceSize.XLARGE2
       ),
       ssmSessionPermissions: true,
       blockDevices: [
