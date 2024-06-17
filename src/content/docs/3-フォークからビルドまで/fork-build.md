@@ -110,7 +110,7 @@ yarn install
 そこで、次の**ビルドコマンド**を投げてみましょう。
 
 ```sh
-npx lerna run build
+npx lerna run build --scope=@aws-cdk-testing/framework-integ
 ```
 
 ※上記コマンドでは、**AWS CDK を構成するすべてのモジュール**をビルドしますが、たとえば`aws-cdk-lib`モジュールだけビルドする場合は、`--scope=aws-cdk-lib`オプションを指定することで、**ビルドするスコープを絞る**ことができます。
