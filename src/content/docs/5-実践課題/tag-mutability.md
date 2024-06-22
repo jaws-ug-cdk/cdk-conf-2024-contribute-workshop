@@ -182,7 +182,7 @@ test('specify imageTagMutability', () => {
      imageTagMutability: ecr.ImageTagMutability.IMMUTABLE,
   });
 
-  Template.fromStack(stack).hasResourceProperties('AWS::ecr::Repository', {
+  Template.fromStack(stack).hasResourceProperties('AWS::ECR::Repository', {
     ImageTagMutability: 'IMMUTABLE',
   });
 });
