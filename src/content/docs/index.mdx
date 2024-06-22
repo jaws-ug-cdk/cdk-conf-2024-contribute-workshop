@@ -3,86 +3,30 @@ title: ようこそ
 description: 日本人 Community によって作成された AWS CDK へコントリビュートするまでの流れを体験できるワークショップです。
 ---
 
-## ここにワークショップ全体の概要などを書く
+## 概要
 
-### なんとなくの自分のイメージ(ここは最終的には変更するので、メモがわりに書いています)
+AWS CDK へコントリビュートするまでの流れを実際に体験できるワークショップコンテンツとなります。
 
-- ワークショップの概要
-- [環境構築](/cdk-conf-2024-contribute-workshop/1-環境構築/setup)
-  - 参加者に EC2 を構築してもらう
-- [コントリビュートの流れとルール](/cdk-conf-2024-contribute-workshop/2-コントリビュートの流れとルール/contribution-flow-rule)
-  - 一番最初に issue に関する説明があるが、ワークショップの時間効率的に**まず最初に AWS CDK 本家をクローンしてビルドを走らせたい**ため、issue を省略して[フォークからビルドまで](/cdk-conf-2024-contribute-workshop/3-フォークからビルドまで/fork-build)を説明
-    - 実際に参加者が**フォーク・クローン・ビルドまで**を各自の環境で手を動かして実行(10〜15 分くらい時間かかる)
-  - ビルド中に、飛ばした issue の説明と、残りのこの項目(他のビルドコマンド・テストコマンド・PR 提出方法)を説明
-    - ここでは**参加者はコード変更・テスト実行などのコマンドを手元で実行は「せず」**、聞くだけ(講義ベース)
-    - 実際に手を動かすのはガイド PR にて
-- ガイド PR 提出
-  - ここで講師側で VSCode 画面を共有し、参加者にも手を動かしてもらう
-    - issue リンク飛んで読む
-    - 対応案・概要などを説明？
-    - ブランチ切る
-      - 先ほどのクローン説明でブランチ切ったのでそれを使ってもよし、新たに切ってもよし
-    - 該当コード・モジュールの説明
-    - コード変更
-    - ビルド
-    - unit / integ テスト
-    - README 変更
-    - PR 提出
-- 実践課題
-- 実践課題の解説
+## 前提条件
 
-※ワークショップ終了後にスタック削除するところまで書く
+- Admin 相当の権限が使える AWS アカウントを持っていること
+- 本ワークショップで使用できる GitHub アカウントを持っていること
+- 上記 AWS アカウントで最大 3US ドル程度の課金額の発生にご理解いただけること
 
-import { Tabs, TabItem, FileTree, Steps } from '@astrojs/starlight/components';
+## ワークショップの流れ
 
-AWS CDK Workshop へようこそ！
+左のバーに表示された順番に沿って着手していきます。
 
-このようにコードを書いたり
+まずは、実際にコントリビュートを体験するための開発環境を、AWS アカウント上の EC2 に構築します。
 
-```ts
-// lib/my-app-stack.ts
-export class MyAppStack {
-  constructor(scope: Construct, id: string, props: StackProps) {
-    super(scope, id);
+[環境構築](/cdk-conf-2024-contribute-workshop/1-環境構築/setup)ページへ飛んでみましょう。
 
-    new Bucket(this, 'Bucket', {
-      removalPolicy: RemovalPolicy.RETAIN,
-      autoDeleteObjects: true,
-    });
-  }
-}
-```
+## ワークショップ終了時の注意
 
-このように diff を表示したり
+本ワークショップで作成した開発環境の EC2、またもしワークショップ中に作成した AWS リソースがあれば、放置すると料金がかかってしまうものがあります。
 
-```diff lang="ts"
-// lib/my-app-stack.ts
-export class MyAppStack {
-  constructor(scope: Construct, id: string, props: StackProps) {
-    super(scope, id);
+そのため、本ワークショップ終了時にはそれらのリソースは全て削除しましょう。
 
-    new Bucket(this, "Bucket", {
--     removalPolicy: RemovalPolicy.RETAIN,
-+     removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-    });
-  }
-}
-```
+開発環境の EC2 は CloudFormation で構築しているため、該当スタックを CloudFormation コンソールなどから削除することでリソースごと削除が可能です。
 
-ファイルツリーを表示したりできます。
-
-<FileTree>
-
-- bin/
-  - my-app.ts
-- lib/
-  - my-app-stack.ts
-- node_modules/
-- cdk.json
-- package.json
-
-</FileTree>
-
-詳しくは以下のドキュメントを参照してください。  
-https://starlight.astro.build/ja/guides/pages/
+またワークショップの中で、例えば統合テスト(`integ`コマンド)を`--no-clean`オプションをつけて実行した場合、統合テストで作成されたスタックは削除されずに残っています。もしそのようなスタックがあれば、スタックごと削除しておきましょう。
