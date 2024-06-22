@@ -285,7 +285,7 @@ new ecr.Repository(this, 'Repo', {
 |-|-|-|
 |PRタイトル|PRの目的|feat(ecr): add `imageTagMutability` property to a repository|
 |Issue # (if applicable)|関連するIssue番号|Closes #2|
-|Reason for this change|変更理由|We can set a image tag immuutability for an ecr repository from cloudformation, but this was not supported in the AWS CDK L2 construct.|
+|Reason for this change|変更理由|We can set an image tag immutability for an ecr repository from cloudformation, but this was not supported in the AWS CDK L2 construct.|
 |Description of changes|変更内容の詳細|Add `imageTagMutability` property to `repositoryProps` and set it in the `CfnRepository` constructor.|
 |Description of how you validated changes|変更の検証方法|Added both unit and integration tests.|
 
