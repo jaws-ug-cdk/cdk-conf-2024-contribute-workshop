@@ -1,5 +1,5 @@
 ---
-title: "機能追加PR(SNS TopicのDisplay Name対応)"
+title: "機能追加PRの作成"
 description: "`sns.Topic` に `displayName` プロパティを追加する PR を提出します。"
 ---
 
