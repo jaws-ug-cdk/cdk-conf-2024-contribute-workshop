@@ -271,10 +271,10 @@ new integ.IntegTest(app, 'SnsTest', {
 
 ```sh
 # Topicクラスを含めたSNSのコンストラクトを再ビルド
-cd /packages/aws-cdk-lib/aws-sns
+cd /packages/aws-cdk-lib
 yarn tsc
 
-cd packages/@aws-cdk-testing/framework-integ/test/aws-sns
+cd packages/@aws-cdk-testing/framework-integ
 # integ ファイルのビルド/トランスパイルをして、javascript ファイルを生成
 yarn tsc
 # 実際にinteg テストを実行する
