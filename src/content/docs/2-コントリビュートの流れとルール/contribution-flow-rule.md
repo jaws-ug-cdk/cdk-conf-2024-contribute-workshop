@@ -94,9 +94,9 @@ yarn lint
 既存の挙動に変更がないかどうか、またバグ修正の際に新たにテストを追加した場合も同じようにテストを実行して確認します。
 
 ```sh
-cd packages/aws-cdk-lib/aws-sqs
+cd packages/aws-cdk-lib
 yarn test
-# またはテストファイル指定 (カレントディレクトリからの相対パスではないので注意)
+# またはテストファイル指定
 yarn test aws-sqs/test/sqs.test.ts
 ```
 
@@ -111,10 +111,10 @@ AWS CDK では、`integ-tests-alpha`モジュールによる、integration テ�
 こちらでは integ テストファイルをビルドし、それによる javascript ファイルへのトランスパイル後に生成された`integ.xx.js`を実行することになります。(**コンストラクト側のファイルも事前にビルドしておく必要があります。**)
 
 ```sh
-cd packages/@aws-cdk-testing/framework-integ/test/aws-sqs
+cd packages/@aws-cdk-testing/framework-integ
 # integ ファイルのビルド/トランスパイルをして、javascript ファイルを生成
 yarn tsc
-# 実際にinteg テストを実行する (カレントディレクトリからの相対パスではないので注意)
+# 実際にinteg テストを実行する
 yarn integ aws-sqs/test/integ.sqs.js # jsファイルが生成されていることを確認してから
 ```
 
