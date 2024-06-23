@@ -242,10 +242,10 @@ new integ.IntegTest(app, 'EcrTest', {
 
 ```sh
 # repositoryクラスを含めたecrのコンストラクトを再ビルド
-cd /packages/aws-cdk-lib/aws-ecr
+cd /packages/aws-cdk-lib
 yarn tsc
 
-cd packages/@aws-cdk-testing/framework-integ/test/aws-ecr
+cd packages/@aws-cdk-testing/framework-integ
 # integ ファイルのビルド/トランスパイルをして、javascript ファイルを生成
 yarn tsc
 # 実際にintegテストを実行する
