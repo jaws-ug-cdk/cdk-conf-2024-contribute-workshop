@@ -10,9 +10,9 @@ EC2への接続にはEC2 instance connect endpointを利用します。
 
 ### スタックのデプロイ
 
-[CdkConferenceStack.json](../../../../CdkConferenceStack.json)を用いて、[マネコン](https://console.aws.amazon.com/cloudformation/home#/stacks?filteringText=&filteringStatus=active&viewNested=true)からスタックのデプロイを行います。
+[CdkConferenceStack.json](../../../../CdkConferenceStack.json)を用いて、[Cloudformationのマネジメントコンソール](https://console.aws.amazon.com/cloudformation/home#/stacks?filteringText=&filteringStatus=active&viewNested=true)からスタックのデプロイを行います。
 
-Create stack > With new resources (standard) > Upload a template file > Choose file > CdkConferenceStack.json > Next > Stack name: `CdkConferenceStack` > Next > Next > Submit
+Create stack > With new resources (standard) > Choose an existing template > Upload a template file > Choose file > CdkConferenceStack.json > Next > Stack name: `CdkConferenceStack` > Next > Next > `I acknowledge that AWS CloudFormation might create IAM resources.` にチェック > Submit
 
 およそ5分ほどでデプロイが完了します。
 
@@ -60,6 +60,8 @@ Open this link in your browser https://vscode.dev/tunnel/ip-10-0-0-23ap-north
 ```
 
 VSCodeが開くので、「このトンネルを開始するために使用したアカウントの種類は何ですか？」でGitHubを選択します。
+
+このとき、再度GitHubの認証画面が開くことがありますので、`Authorize`を押下します。
 
 ターミナルを開けば準備完了です。
 
