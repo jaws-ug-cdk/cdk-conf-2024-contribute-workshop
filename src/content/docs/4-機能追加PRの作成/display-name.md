@@ -154,12 +154,12 @@ export class Topic extends TopicBase {
 
 #### テストファイルの修正
 
-続いてユニットテストを追加します。テストファイルは`aws-cdk/packages/aws-cdk-lib/aws-sns/test/topic.test.ts`です。
+続いてユニットテストを追加します。テストファイルは`aws-cdk/packages/aws-cdk-lib/aws-sns/test/sns.test.ts`です。
 
 ユニットテストでは、`displayName`プロパティがCloudformationテンプレートに正しく反映されるかを確認します。
 
 ```ts {2-12}
-// aws-cdk/packages/aws-cdk-lib/aws-sns/test/topic.test.ts
+// aws-cdk/packages/aws-cdk-lib/aws-sns/test/sns.test.ts
 test('specify displayName', () => {
   const stack = new cdk.Stack();
 
