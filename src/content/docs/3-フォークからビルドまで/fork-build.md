@@ -9,7 +9,7 @@ description: AWS CDK のリポジトリをフォークし、ビルドするま�
 
 しかし本ワークショップでは、**本家の AWS CDK リポジトリではなく、ワークショップ用の擬似リポジトリを使用します。** そのため、以下のリポジトリをフォークしてください。
 
-- <https://github.com/go-to-k/aws-cdk-for-workshop>
+- <https://github.com/jaws-ug-cdk/aws-cdk-for-workshop>
 
 ### ブラウザでリポジトリを開き、右上の`Fork`ボタンを押す
 
