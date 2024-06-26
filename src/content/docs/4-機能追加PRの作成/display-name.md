@@ -106,7 +106,7 @@ jsdocには`displayName`プロパティの説明を[Cloudformationのドキュ�
 
 また、上記の通りoptionalなプロパティであることを示すために`?`を付け、デフォルトの挙動を`@default`に記述します。
 
-```ts {4-9}
+```ts {4-11}
 // aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts
 export interface TopicProps {
   ..., // 既存のプロパティ
@@ -154,12 +154,12 @@ export class Topic extends TopicBase {
 
 #### テストファイルの修正
 
-続いてユニットテストを追加します。テストファイルは`aws-cdk/packages/aws-cdk-lib/aws-sns/test/topic.test.ts`です。
+続いてユニットテストを追加します。テストファイルは`aws-cdk/packages/aws-cdk-lib/aws-sns/test/sns.test.ts`です。
 
 ユニットテストでは、`displayName`プロパティがCloudformationテンプレートに正しく反映されるかを確認します。
 
 ```ts {2-12}
-// aws-cdk/packages/aws-cdk-lib/aws-sns/test/topic.test.ts
+// aws-cdk/packages/aws-cdk-lib/aws-sns/test/sns.test.ts
 test('specify displayName', () => {
   const stack = new cdk.Stack();
 
@@ -179,7 +179,7 @@ test('specify displayName', () => {
 
 ```sh
 cd packages/aws-cdk-lib
-yarn test aws-sns/test/topic.test.ts
+yarn test aws-sns/test/sns.test.ts
 ```
 
 これでユニットテストの追加は完了です。一連の内容をcommitしておきましょう。
@@ -234,7 +234,7 @@ test('throw error when displayName is too long', () => {
 続いて統合テストを追加します。統合テストでは、`displayName`を設定したSNS Topicが正しく作成されるかを確認します。
 
 テストファイルは`packages/@aws-cdk-testing/framework-integ/test/aws-sns/test`に作成します。
-今回は新規の統合テストファイルを作成します。
+今回は新規の統合テストファイル(integ.sns-display-name.ts)を作成します。
 
 ```ts
 // packages/@aws-cdk-testing/framework-integ/test/aws-sns/test/integ.sns-display-name.ts
