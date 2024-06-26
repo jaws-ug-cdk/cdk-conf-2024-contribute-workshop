@@ -3,32 +3,32 @@ title: 開発環境のセットアップ
 description: AWS CDK の開発環境をセットアップします。
 ---
 
-ここでは開発環境となるEC2インスタンスをセットアップします。
-EC2への接続にはEC2 instance connect endpointを利用します。
+ここでは開発環境となる EC2 インスタンスをセットアップします。
+EC2 への接続には EC2 instance connect endpoint を利用します。
 
 ## 構築手順
 
 ### スタックのデプロイ
 
-[CdkConferenceStack.json](../../../../CdkConferenceStack.json)を用いて、[Cloudformationのマネジメントコンソール](https://console.aws.amazon.com/cloudformation/home#/stacks?filteringText=&filteringStatus=active&viewNested=true)からスタックのデプロイを行います。
+[CdkConferenceStack.json](/cdk-conf-2024-contribute-workshop/CdkConferenceStack.json)を用いて、[Cloudformation のマネジメントコンソール](https://console.aws.amazon.com/cloudformation/home#/stacks?filteringText=&filteringStatus=active&viewNested=true)からスタックのデプロイを行います。
 
 Create stack > With new resources (standard) > Choose an existing template > Upload a template file > Choose file > CdkConferenceStack.json > Next > Stack name: `CdkConferenceStack` > Next > Next > `I acknowledge that AWS CloudFormation might create IAM resources.` にチェック > Submit
 
-およそ5分ほどでデプロイが完了します。
+およそ 5 分ほどでデプロイが完了します。
 
-### EC2へのアクセス
+### EC2 へのアクセス
 
-[AWSコンソールのEC2管理画面](https://console.aws.amazon.com/ec2/home#Instances:instanceState=running)にアクセスし、EC2インスタンスにEIC Endpointを経由して接続します
+[AWS コンソールの EC2 管理画面](https://console.aws.amazon.com/ec2/home#Instances:instanceState=running)にアクセスし、EC2 インスタンスに EIC Endpoint を経由して接続します
 
-Instance IDを選択 > Connect > EC2 Instance Connect > Connect using EC2 Instance Connect Endpoint > Connect
+Instance ID を選択 > Connect > EC2 Instance Connect > Connect using EC2 Instance Connect Endpoint > Connect
 
-以下の画面が表示されればOKです。
+以下の画面が表示されれば OK です。
 
 ![EC2コンソール画面](../../../assets/ec2-console.png)
 
-### VSCode Serverへのブラウザアクセスの確立
+### VSCode Server へのブラウザアクセスの確立
 
-EC2上で以下のコマンドを実行し、VSCode Serverを起動します。
+EC2 上で以下のコマンドを実行し、VSCode Server を起動します。
 
 ```sh
 [ec2-user@ip-10-0-0-23 ~]$ code tunnel service install
@@ -40,7 +40,7 @@ To grant access to the server, please log into https://github.com/login/device a
 
 - 上記の例では'3811-9932'を入力 > Continue > Continue > Authorize-Visual-Studio-Code
 
-EC2に戻り、改めて`code tunnel`を実行し、以下のように表示されたURL (https://vscode.dev/tunnel/ip-{pricateIp}{region}) をブラウザで開きます。
+EC2 に戻り、改めて`code tunnel`を実行し、以下のように表示された URL (https://vscode.dev/tunnel/ip-{pricateIp}{region}) をブラウザで開きます。
 
 ```sh
 [ec2-user@ip-10-0-0-23 ~]$ code tunnel
@@ -59,9 +59,9 @@ Connected to an existing tunnel process running on this machine.
 Open this link in your browser https://vscode.dev/tunnel/ip-10-0-0-23ap-north
 ```
 
-VSCodeが開くので、「このトンネルを開始するために使用したアカウントの種類は何ですか？」でGitHubを選択します。
+VSCode が開くので、「このトンネルを開始するために使用したアカウントの種類は何ですか？」で GitHub を選択します。
 
-このとき、再度GitHubの認証画面が開くことがありますので、`Authorize`を押下します。
+このとき、再度 GitHub の認証画面が開くことがありますので、`Authorize`を押下します。
 
 ターミナルを開けば準備完了です。
 
