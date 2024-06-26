@@ -1,0 +1,361 @@
+{
+ "Resources": {
+  "Vpc8378EB38": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/Resource"
+   }
+  },
+  "VpcPublicSubnet1Subnet5C2D37C4": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/26",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/PublicSubnet1/Subnet"
+   }
+  },
+  "VpcPublicSubnet1RouteTable6C95E38E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "VpcPublicSubnet1RouteTableAssociation97140677": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+    },
+    "SubnetId": {
+     "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcPublicSubnet1DefaultRoute3DA9E72A": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcPublicSubnet1RouteTable6C95E38E"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "VpcIGWD7BA715C": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/IGW"
+   }
+  },
+  "VpcVPCGWBF912B6E": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Vpc/VPCGW"
+   }
+  },
+  "InstanceInstanceSecurityGroupF0E2D5BE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "CdkConferenceStack/Instance/InstanceSecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Instance"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Instance/InstanceSecurityGroup/Resource"
+   }
+  },
+  "InstanceInstanceSecurityGroupfromCdkConferenceStackInstanceConnectEndpointSecurityGroup5A42F30222DFEE5211": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from CdkConferenceStackInstanceConnectEndpointSecurityGroup5A42F302:22",
+    "FromPort": 22,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "InstanceInstanceSecurityGroupF0E2D5BE",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "InstanceConnectEndpointSecurityGroupA4363F4A",
+      "GroupId"
+     ]
+    },
+    "ToPort": 22
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Instance/InstanceSecurityGroup/from CdkConferenceStackInstanceConnectEndpointSecurityGroup5A42F302:22"
+   }
+  },
+  "InstanceInstanceRoleE9785DE5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Instance"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Instance/InstanceRole/Resource"
+   }
+  },
+  "InstanceInstanceRoleDefaultPolicy4ACE9290": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "*",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "InstanceInstanceRoleDefaultPolicy4ACE9290",
+    "Roles": [
+     {
+      "Ref": "InstanceInstanceRoleE9785DE5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Instance/InstanceRole/DefaultPolicy/Resource"
+   }
+  },
+  "InstanceInstanceProfileAB5AEF02": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "InstanceInstanceRoleE9785DE5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Instance/InstanceProfile"
+   }
+  },
+  "InstanceC1063A87": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "BlockDeviceMappings": [
+     {
+      "DeviceName": "/dev/xvda",
+      "Ebs": {
+       "DeleteOnTermination": true,
+       "Encrypted": false,
+       "VolumeSize": 30
+      }
+     }
+    ],
+    "IamInstanceProfile": {
+     "Ref": "InstanceInstanceProfileAB5AEF02"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61arm64C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "c7g.2xlarge",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "InstanceInstanceSecurityGroupF0E2D5BE",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkConferenceStack/Instance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "#!/bin/bash\nsudo dnf update -y\ntouch ~/.bashrc\ncurl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash\nsource ~/.bashrc\nexport NVM_DIR=\"$HOME/.nvm\"\n[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"\nnvm install --lts\ncat <<EOF >> /home/ec2-user/.bashrc\nexport NVM_DIR=\"/.nvm\"\n[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"\nEOF\nsudo rpm --import https://packages.microsoft.com/keys/microsoft.asc\necho -e \"[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null\nsudo dnf check-update\nsudo dnf install -y code\nsudo dnf install -y git\nnpm install -g yarn aws-cdk\nsudo dnf groupinstall -y 'Development Tools'\necho 'export NODE_OPTIONS=--max-old-space-size=8192' >> /etc/profile.d/myenv.sh\nchmod +x /etc/profile.d/myenv.sh\nsudo loginctl enable-linger ec2-user"
+    }
+   },
+   "DependsOn": [
+    "InstanceInstanceRoleDefaultPolicy4ACE9290",
+    "InstanceInstanceRoleE9785DE5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/Instance/Resource"
+   }
+  },
+  "InstanceConnectEndpointSecurityGroupA4363F4A": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "CdkConferenceStack/InstanceConnectEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/InstanceConnectEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "InstanceConnectEndpointAC315DCA": {
+   "Type": "AWS::EC2::InstanceConnectEndpoint",
+   "Properties": {
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "InstanceConnectEndpointSecurityGroupA4363F4A",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "VpcPublicSubnet1Subnet5C2D37C4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkConferenceStack/InstanceConnectEndpoint/Resource"
+   }
+  }
+ },
+ "Parameters": {
+  "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61arm64C96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+   "Default": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-arm64"
+  }
+ }
+}
