@@ -179,7 +179,7 @@ test('specify displayName', () => {
 
 ```sh
 cd packages/aws-cdk-lib
-yarn test aws-sns/test/topic.test.ts
+yarn test aws-sns/test/sns.test.ts
 ```
 
 これでユニットテストの追加は完了です。一連の内容をcommitしておきましょう。
