@@ -106,7 +106,7 @@ jsdocには`displayName`プロパティの説明を[Cloudformationのドキュ�
 
 また、上記の通りoptionalなプロパティであることを示すために`?`を付け、デフォルトの挙動を`@default`に記述します。
 
-```ts {4-9}
+```ts {4-11}
 // aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts
 export interface TopicProps {
   ..., // 既存のプロパティ
