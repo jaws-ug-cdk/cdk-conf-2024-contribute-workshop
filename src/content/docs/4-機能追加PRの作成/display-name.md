@@ -234,7 +234,7 @@ test('throw error when displayName is too long', () => {
 続いて統合テストを追加します。統合テストでは、`displayName`を設定したSNS Topicが正しく作成されるかを確認します。
 
 テストファイルは`packages/@aws-cdk-testing/framework-integ/test/aws-sns/test`に作成します。
-今回は新規の統合テストファイルを作成します。
+今回は新規の統合テストファイル(integ.sns-display-name.ts)を作成します。
 
 ```ts
 // packages/@aws-cdk-testing/framework-integ/test/aws-sns/test/integ.sns-display-name.ts
