@@ -178,7 +178,7 @@ export class Repository extends RepositoryBase {
 test('specify imageTagMutability', () => {
   const stack = new cdk.Stack();
 
-  new ecr.repository(stack, 'MyRepository', {
+  new ecr.Repository(stack, 'MyRepository', {
      imageTagMutability: ecr.ImageTagMutability.IMMUTABLE,
   });
 
