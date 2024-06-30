@@ -87,9 +87,9 @@ cd packages/aws-cdk-lib
 yarn lint
 ```
 
-### unit テスト実行
+### unit テスト(単体テスト)実行
 
-機能追加やバグ修正などでは、unit テストを実行して、変更が正しく動作することを確認します。
+機能追加やバグ修正などでは、unit テスト(単体テスト)を実行して、変更が正しく動作することを確認します。
 
 既存の挙動に変更がないかどうか、またバグ修正の際に新たにテストを追加した場合も同じようにテストを実行して確認します。
 
@@ -104,9 +104,9 @@ yarn test aws-sqs/test/sqs.test.ts
 
 ![test-01](./images/test-01.png)
 
-### integration テスト実行
+### integration テスト(統合テスト)実行
 
-AWS CDK では、Pull Request の種類(詳細は後述)によって`integ-tests-alpha`モジュールによる integration テストを追加・変更する必要があります。ここでの integration テストとは、実際に AWS 環境に正しくデプロイできるかを確認するテストになります。
+AWS CDK では、Pull Request の種類(詳細は後述)によって`integ-tests-alpha`モジュールによる integration テスト(統合テスト)を追加・変更する必要があります。ここでの integration テストとは、実際に AWS 環境に正しくデプロイできるかを確認するテストになります。
 
 こちらでは integration テストファイル(TypeScript)をビルドし、javascript ファイルへトランスパイルされた`integ.xx.js`を実行することになります。(**自分の変更したコンストラクト側、つまり aws-cdk-lib モジュール側のファイルも事前にビルドしておく必要があります。**)
 
