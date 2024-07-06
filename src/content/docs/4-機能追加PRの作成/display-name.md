@@ -269,7 +269,7 @@ new integ.IntegTest(app, 'SnsTest', {
 
 ##### 下準備
 
-統合テストではus-east-1リージョンに対してcdk deployを実行します。そのため、事前にbootstrapが必要になります。
+本ワークショップでの統合テストでは us-east-1 リージョンに対してデプロイが行われます。内部的に cdk deploy が実行されるため、事前に bootstrap が必要になります。
 もし、今までに一度もus-east-1にcdk deployを実行していない場合は、以下のコマンドを実行してください。
 
 ```sh
