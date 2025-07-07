@@ -188,18 +188,22 @@ yarn test aws-sns/test/sns.test.ts
 バリデーションコードを追加した場合は、そのバリデーションに対するテストも追加します。
 
 今回は`displayName`が100文字を超える場合はエラーを返すバリデーションを追加したとします。
+Construct内部におけるバリデーションには、aws-cdk-libが提供する`ValidationError`クラスを使用します。
 
-引数の型がstringまたはnumberの場合、Tokenが渡される可能性も考慮して、`Token.isUnresolved()`を使ったバリデーションも行います。詳しくはこちらの[ドキュメント](https://aws.amazon.com/jp/builders-flash/202406/cdk-validation/#03-01)を参照してください。
+また、引数の型がstringまたはnumberの場合、Tokenが渡される可能性も考慮して、`Token.isUnresolved()`を使ったバリデーションも行います。詳しくはこちらの[ドキュメント](https://aws.amazon.com/jp/builders-flash/202406/cdk-validation/#03-01)を参照してください。
 
 ```ts {6-8}
 // aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts
+// aws-cdk-lib/core からValidationErrorをインポート
+import { ValidationError } from '../../core';
+
 export class Topic extends TopicBase {
   constructor(scope: Construct, id: string, props: TopicProps) {
     super(scope, id, props);
 
     // displayNameが100文字を超える場合はエラー
     if (props.displayName && !Token.isUnresolved(props.displayName) && props.displayName.length > 100) {
-      throw new Error(`displayName must be less than 100 characters, got ${props.displayName.length}`);
+      throw new ValidationError(`displayName must be less than 100 characters, got ${props.displayName.length}`, this);
     }
 
     const resource = new CfnTopic(this, 'Resource', {
