@@ -190,7 +190,7 @@ yarn test aws-sns/test/sns.test.ts
 今回は`displayName`が100文字を超える場合はエラーを返すバリデーションを追加したとします。
 CDKでのバリデーションには、`aws-cdk-lib/core`から提供されるカスタム`Error`クラスを用います。バリデーション実行箇所がConstruct内部の場合は`ValidationError`を、Construct外部の場合は`UnscopedValidationError`を使用します。
 
-今回のケースでは`Topic`クラスのconstruct内でバリデーションを行うため、`ValidationError`を使用します。
+今回のケースでは`Topic`コンストラクタ内でバリデーションを行うため、`ValidationError`を使用します。
 
 また、引数の型がstringまたはnumberの場合、Tokenが渡される可能性も考慮して、`Token.isUnresolved()`を使ったバリデーションも行います。詳しくはこちらの[ドキュメント](https://aws.amazon.com/jp/builders-flash/202406/cdk-validation/#03-01)を参照してください。
 
