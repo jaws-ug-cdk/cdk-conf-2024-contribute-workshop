@@ -184,7 +184,7 @@ git push origin workshop-guide-1 # ブランチ名は適宜変更
 ![pr-01](./images/pr-01.png)
 
 > [!NOTE]
-> もし出ていない場合、`Contribute`ボタンを押すと以下のようなパネルが開かれます。そこから`Open pull request`ボタンを押しましょう。
+> もし出ていない場合、左側のブランチボタンから該当ブランチを選択し、`Contribute`ボタンを押すと以下のようなパネルが開かれます。そこから`Open pull request`ボタンを押しましょう。
 >
 > ![pr-open-01.png](./images/pr-open-01.png)
 
