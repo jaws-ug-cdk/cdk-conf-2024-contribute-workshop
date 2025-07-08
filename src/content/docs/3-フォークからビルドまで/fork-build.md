@@ -77,7 +77,7 @@ git branch
 
 これは`aws-cdk-lib`モジュールといい、AWS CDK のコンストラクトなど CDK を構成する大部分のコードが含まれています。
 
-※他のディレクトリでは、`aws-cdk`には CLI としてのコードなど、`@aws-cdk`には alpha モジュールなど、`@aws-cdk-testing`には integration テストなどのテストコードが入っています。
+※他のディレクトリでは、`@aws-cdk`には alpha モジュールなど、`@aws-cdk-testing`には integration テストなどのテストコードが入っています。
 
 ![workshop-14](./images/workshop-14.png)
 
