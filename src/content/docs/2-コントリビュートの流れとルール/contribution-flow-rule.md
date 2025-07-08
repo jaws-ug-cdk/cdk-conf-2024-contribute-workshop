@@ -153,9 +153,30 @@ git commit -m "feat(sqs): add xxx property" # コミットメッセージは適�
 git push origin workshop-guide-1 # ブランチ名は適宜変更
 ```
 
+> [!NOTE]
+> `git commit`で以下のようなダイアログが出ることもあります。
+>
+> ![git-error-01.png](./images/git-error-01.png)
+>
+> ![git-error-02.png](./images/git-error-02.png)
+>
+> その場合、ターミナルから、自分のGit情報(`user.name`, `user.email`)を設定しましょう。
+>
+> ```sh
+> git config --global user.name "my-username"
+> git config --global user.email "my-email"
+> ```
+>
+> ![git-error-03.png](./images/git-error-03.png)
+
 そして、フォークしたリポジトリをブラウザで開くとこのようなダイアログが出力されているので、このまま GitHub 上で Pull Request を提出します。
 
 ![pr-01](./images/pr-01.png)
+
+> [!NOTE]
+> もし出ていない場合、`Contribute`ボタンを押すと以下のようなパネルが開かれます。そこから`Open pull request`ボタンを押しましょう。
+>
+> ![pr-open-01.png](./images/pr-open-01.png)
 
 Pull Request のルール(後述)に沿ってタイトルや本文を記載し、Pull Request を提出します。
 
