@@ -171,7 +171,7 @@ git push origin workshop-guide-1 # ブランチ名は適宜変更
 >
 > ![git-error-03.png](./images/git-error-03.png)
 >
-> ターミナル上で`git commit`を実行する場合は、以下のようなメッセージが出ますが、コミットは成功します。
+> ターミナル上で`git commit`を実行する場合は、上記設定をせずとも、以下のようなメッセージが出ますがコミットは成功します。
 >
 > ![git-commit-message-01.png](./images/git-commit-message-01.png)
 >
