@@ -154,7 +154,7 @@ git push origin workshop-guide-1 # ブランチ名は適宜変更
 ```
 
 > [!NOTE]
-> VS Code上でコミットをする際、以下のようなダイアログが出ることがあります。
+> VS Code 上でコミットをする際、以下のようなダイアログが出ることがあります。
 >
 > ![git-commit-terminal-01.png](./images/git-commit-terminal-01.png)
 >
