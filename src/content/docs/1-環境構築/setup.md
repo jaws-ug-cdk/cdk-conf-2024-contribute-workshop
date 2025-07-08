@@ -20,7 +20,7 @@ Create stack > With new resources (standard) > Choose an existing template > Upl
 
 [AWSコンソールのEC2管理画面](https://console.aws.amazon.com/ec2/home#Instances:instanceState=running)にアクセスし、EC2インスタンスにEIC Endpointを経由して接続します
 
-Instance IDを選択 > Connect > EC2 Instance Connect > "Connect using a Private IP" ボタンを選択 > "EC2 Instance Connect Endpoint" が指定されていることを確認 > Connect
+Instance IDを選択 > Connect > EC2 Instance Connect > "Connect using a Private IP" ボタンを選択 > "EC2 Instance Connect Endpoint" に値が指定されていることを確認 > Connect
 
 以下の画面が表示されればOKです。
 
