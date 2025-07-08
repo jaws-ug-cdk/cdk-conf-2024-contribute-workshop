@@ -154,13 +154,15 @@ git push origin workshop-guide-1 # ブランチ名は適宜変更
 ```
 
 > [!NOTE]
-> `git commit`で以下のようなダイアログが出ることもあります。
+> VS Code上でコミットをする際、以下のようなダイアログが出ることがあります。
+>
+> ![git-commit-terminal-01.png](./images/git-commit-terminal-01.png)
 >
 > ![git-error-01.png](./images/git-error-01.png)
 >
 > ![git-error-02.png](./images/git-error-02.png)
 >
-> その場合、ターミナルから、自分のGit情報(`user.name`, `user.email`)を設定しましょう。
+> その場合、ターミナルから、自分の Git 情報(`user.name`, `user.email`)を設定しましょう。
 >
 > ```sh
 > git config --global user.name "my-username"
@@ -168,6 +170,14 @@ git push origin workshop-guide-1 # ブランチ名は適宜変更
 > ```
 >
 > ![git-error-03.png](./images/git-error-03.png)
+>
+> ターミナル上で`git commit`を実行する場合は、以下のようなメッセージが出ますが、コミットは成功します。
+>
+> ![git-commit-message-01.png](./images/git-commit-message-01.png)
+>
+> しかし、そのまま push すると、以下のような匿名ユーザーのコミットになってしまうので、やはり上記のように`git config`によるユーザー設定をしておくことをお勧めします。
+>
+> ![git-commit-message-02.png](./images/git-commit-message-02.png)
 
 そして、フォークしたリポジトリをブラウザで開くとこのようなダイアログが出力されているので、このまま GitHub 上で Pull Request を提出します。
 
