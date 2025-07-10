@@ -12,7 +12,7 @@ EC2への接続にはEC2 instance connect endpointを利用します。
 
 [CdkConferenceStack.json](https://github.com/jaws-ug-cdk/cdk-conf-2024-contribute-workshop/blob/main/CdkConferenceStack.json)を用いて、[Cloudformationのマネジメントコンソール](https://console.aws.amazon.com/cloudformation/home#/stacks?filteringText=&filteringStatus=active&viewNested=true)からスタックのデプロイを行います。
 
-Create stack > With new resources (standard) > Choose an existing template > Upload a template file > Choose file > CdkConferenceStack.json > Next > Stack name: `CdkConferenceStack` > Next > Next > `I acknowledge that AWS CloudFormation might create IAM resources.` にチェック > Submit
+Create stack > With new resources (standard) > Choose an existing template > Upload a template file > Choose file > CdkConferenceStack.json > Next > Stack name: `CdkConferenceStack` > Next > `I acknowledge that AWS CloudFormation might create IAM resources.` にチェック > Next > Submit
 
 およそ5分ほどでデプロイが完了します。
 
