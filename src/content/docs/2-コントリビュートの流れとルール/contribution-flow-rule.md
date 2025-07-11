@@ -147,6 +147,8 @@ yarn integ aws-sqs/test/integ.sqs.js --no-clean --update-on-failed
 
 まず、ローカルのブランチで、変更したファイルを push します。
 
+コミット・プッシュは、VS CODE 上のボタンで行うことも、以下のようにターミナルでコマンドで行うこともできます。
+
 ```sh
 git add . # もしくは実際に変更したファイルを直接指定
 git commit -m "feat(sqs): add xxx property" # コミットメッセージは適宜変更
