@@ -157,7 +157,3 @@ git switch -c workshop-guide-1
 
 git branch
 ```
-
-![workshop-12](./images/workshop-12.png)
-
-![workshop-13](./images/workshop-13.png)
