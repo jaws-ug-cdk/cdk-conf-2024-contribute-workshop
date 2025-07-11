@@ -147,46 +147,54 @@ yarn integ aws-sqs/test/integ.sqs.js --no-clean --update-on-failed
 
 まず、ローカルのブランチで、変更したファイルを push します。
 
+コミット・プッシュは、VS Code 上のボタンで行うことも、以下のようにターミナルでコマンドで行うこともできます。
+
 ```sh
 git add . # もしくは実際に変更したファイルを直接指定
 git commit -m "feat(sqs): add xxx property" # コミットメッセージは適宜変更
 git push origin workshop-guide-1 # ブランチ名は適宜変更
 ```
 
-**注意:**
-> VS Code 上でコミットをする際、以下のようなダイアログが出ることがあります。
->
-> ![git-commit-terminal-01.png](./images/git-commit-terminal-01.png)
->
-> ![git-error-01.png](./images/git-error-01.png)
->
-> ![git-error-02.png](./images/git-error-02.png)
->
-> その場合、ターミナルから、自分の Git 情報(`user.name`, `user.email`)を設定しましょう。
->
-> ```sh
-> git config --global user.name "my-username"
-> git config --global user.email "my-email"
-> ```
->
-> ![git-error-03.png](./images/git-error-03.png)
->
-> ターミナル上で`git commit`を実行する場合は、上記設定をせずとも、以下のようなメッセージが出ますがコミットは成功します。
->
-> ![git-commit-message-01.png](./images/git-commit-message-01.png)
->
-> しかし、そのまま push すると、以下のような匿名ユーザーのコミットになってしまうので、やはり上記のように`git config`によるユーザー設定をしておくことをお勧めします。
->
-> ![git-commit-message-02.png](./images/git-commit-message-02.png)
+:::note
+
+VS Code 上でコミットをする際、以下のようなダイアログが出ることがあります。
+
+![git-commit-terminal-01.png](./images/git-commit-terminal-01.png)
+
+![git-error-01.png](./images/git-error-01.png)
+
+![git-error-02.png](./images/git-error-02.png)
+
+その場合、ターミナルから、自分の Git 情報(`user.name`, `user.email`)を設定しましょう。
+
+```sh
+git config --global user.name "my-username"
+git config --global user.email "my-email"
+```
+
+![git-error-03.png](./images/git-error-03.png)
+
+ターミナル上で`git commit`を実行する場合は、上記設定をせずとも、以下のようなメッセージが出ますがコミットは成功します。
+
+![git-commit-message-01.png](./images/git-commit-message-01.png)
+
+しかし、そのまま push すると、以下のような匿名ユーザーのコミットになってしまうので、やはり上記のように`git config`によるユーザー設定をしておくことをお勧めします。
+
+![git-commit-message-02.png](./images/git-commit-message-02.png)
+
+:::
 
 そして、フォークしたリポジトリをブラウザで開くとこのようなダイアログが出力されているので、このまま GitHub 上で Pull Request を提出します。
 
 ![pr-01](./images/pr-01.png)
 
-**注意:**
-> もし出ていない場合、左側のブランチボタンから該当ブランチを選択し、`Contribute`ボタンを押すと以下のようなパネルが開かれます。そこから`Open pull request`ボタンを押しましょう。
->
-> ![pr-open-01.png](./images/pr-open-01.png)
+:::note
+
+もし出ていない場合、左側のブランチボタンから該当ブランチを選択し、`Contribute`ボタンを押すと以下のようなパネルが開かれます。そこから`Open pull request`ボタンを押しましょう。
+
+![pr-open-01.png](./images/pr-open-01.png)
+
+:::
 
 Pull Request のルール(後述)に沿ってタイトルや本文を記載し、Pull Request を提出します。
 
