@@ -51,23 +51,13 @@ description: AWS CDK のリポジトリをフォークし、ビルドするま�
 
 これでクローンが完了し、VS Code でコードを開けるようになりました。
 
-## ブランチの作成・チェックアウト
+## ターミナルを開いておく
 
-ここでターミナルを開きます。
+ここで VS Code でターミナルを開いておきます。
+
+以降で説明するインストールやビルドなどのコマンドは、このターミナルで実行します。
 
 ![workshop-11](./images/workshop-11.png)
-
-以下のコマンドを実行して、プルリクエストのための任意の名前のブランチを作成します。`git branch`コマンドで作成したブランチが確認できます。
-
-```sh
-git checkout -b workshop-guide-1
-
-git branch
-```
-
-![workshop-12](./images/workshop-12.png)
-
-![workshop-13](./images/workshop-13.png)
 
 ## モジュールのインストール
 
@@ -154,3 +144,16 @@ ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
 - integration テストファイル: `packages/@aws-cdk-testing/aws-sqs/test/integ.sqs.ts`
 
 ![workshop-24](./images/workshop-24.png)
+
+## ※ブランチの作成・チェックアウト
+
+**注意: 本ワークショップでは、後ほど実施する 「4. 機能追加PRの作成」 で実際にブランチの作成・チェックアウトを行うので、ここでは行う必要はありません。**
+説明の便宜上こちらに載せていますが、実際にコントリビュートする際には以下を参考にして実行してください。
+
+以下のコマンドを実行して、プルリクエストのための任意の名前のブランチを作成します。`git branch`コマンドで作成したブランチが確認できます。
+
+```sh
+git switch -c workshop-guide-1
+
+git branch
+```
