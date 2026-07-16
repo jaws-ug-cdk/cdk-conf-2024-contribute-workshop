@@ -6,7 +6,7 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "AWS CDK Contribute Workshop",
+      title: "AWS CDK Contribute Workshop 2026",
       // このサイトのデフォルト言語として日本語を設定します。
       locales: {
         // 日本語のドキュメントは`src/content/docs/ja/`に置きます。

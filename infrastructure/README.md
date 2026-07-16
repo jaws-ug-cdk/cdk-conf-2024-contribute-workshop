@@ -12,6 +12,7 @@
   - Conditionsセクション
   - Parameters.BootstrapVersion
   - Resources.CDKMetadata
-  - Resources.CustomVpcRestrictDefauleSGCustomResourceProviderRole
-  - Resources.CustomVpcRestrictDefauleSGCustomResourceProviderHandler
+  - Resources.VpcRestrictDefaultSecurityGroupCustomResource*
+  - Resources.CustomVpcRestrictDefaultSGCustomResourceProviderRole*
+  - Resources.CustomVpcRestrictDefaultSGCustomResourceProviderHandler*
 
