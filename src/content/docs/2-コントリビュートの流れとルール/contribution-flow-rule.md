@@ -3,6 +3,42 @@ title: コントリビュートの流れとルール
 description: 実際に AWS CDK にコントリビュートする際の流れやルール、コマンドの説明になります。
 ---
 
+## Skill と人間の役割
+
+CDK Contribution Skill は、ここで説明するコントリビュート作業を次のフェーズに分けて支援します。
+
+```mermaid
+flowchart TD
+    A[Analysis] --> P[Planning]
+    P --> G1{{参加者による計画の承認}}
+    G1 --> B["Build & Implementation"]
+    B --> V["Parallel Validation<br/>(Test / QA / Docs)"]
+    V --> S["Self Review<br/>(Security / Regression)"]
+    S --> G2{{参加者による最終確認}}
+    G2 --> PR["PR preparation"]
+```
+
+| フェーズ | Skill の作業 | 参加者が確認すること |
+|---|---|---|
+| Analysis | Issue、関連コード、既存 PR の調査 | 要求と影響範囲を説明できるか |
+| Planning | 実装・unit test・integration test の計画 | API 設計、後方互換性、テスト方針が妥当か |
+| Build & Implementation | 承認済み計画に沿った変更 | 計画外の変更がないか |
+| Parallel Validation | test、lint、build、ドキュメント確認 | 実行したコマンドと結果が十分か |
+| Self Review | security、regression の確認 | 残存リスクを受け入れられるか |
+| PR preparation | タイトルと本文の準備 | 差分を理解し、自分の言葉で説明できるか |
+
+:::caution
+
+エージェントの提案はレビューの代わりにはなりません。計画承認前、AWS へのデプロイ前、Pull Request 提出前には必ず参加者が内容を確認してください。
+
+:::
+
+## ワークショップ用リポジトリのルール
+
+本番のコントリビュートでは `aws/aws-cdk` を利用しますが、このワークショップでは `jaws-ug-cdk/aws-cdk-for-workshop` の Issue とコードだけを利用します。
+
+演習用リポジトリの `AGENTS.md` には、対象リポジトリ、利用可能なビルド・テストコマンド、人間による承認ポイント (長時間ビルド、integration test の AWS デプロイ、push と Pull Request 作成の前) が記載されています。Skill 内に `aws/aws-cdk` への参照があっても、ワークショップ中は `AGENTS.md` の指示を優先します。
+
 ## コントリビュートの流れ
 
 実際に AWS CDK にコントリビュートする際は、主に以下のフローで行います。

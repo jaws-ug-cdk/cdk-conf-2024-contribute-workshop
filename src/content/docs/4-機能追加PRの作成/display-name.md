@@ -77,14 +77,37 @@ PRの作成には以下の要素を含める必要があります。
 - L2コンストラクト(packages/aws-cdk-lib/aws-sns/lib/topic.ts)のコード変更
   - `TopicProps`に`displayName`プロパティを追加
   - `Topic`クラスのconstructor関数中の`CfnTopic`クラスのインスタンス作成時に`displayName`プロパティを設定
-- ユニットテスト(packages/aws-cdk-lib/aws-sns/test/topic.test.ts)の追加
+- ユニットテスト(packages/aws-cdk-lib/aws-sns/test/sns.test.ts)の追加
   - `displayName`プロパティがCloudformationテンプレートに正しく反映されるか
 - 統合テスト(packages/@aws-cdk-testing/framework-integ/test/aws-sns/test)の追加
   - `displayName`を設定したSNS Topicが正しく作成されるか
 - READMEの更新
   - 機能追加に関する説明を追加
 
-## 手順
+## エージェントと進める手順
+
+この課題では [演習用 Issue #1](https://github.com/jaws-ug-cdk/aws-cdk-for-workshop/issues/1) を CDK Contribution Skill に渡します。Kiro CLI に次のメッセージを送ってください。
+
+```text
+Use the CDK Contribution Skill for https://github.com/jaws-ug-cdk/aws-cdk-for-workshop/issues/1.
+Follow AGENTS.md, use only the workshop repository, and stop at every human approval gate.
+Start with analysis and planning. Do not implement anything until I approve the plan.
+```
+
+Skill がワークフロー全体を提示したら内容を確認して開始します。Analysis と Planning が完了した時点 (`.contributions/1/01-analysis.md`, `02-solution.md` が作成された時点) で、次を確認してください。
+
+- Issue の目的を自分の言葉で説明できる
+- 変更対象が SNS の L2、unit test、integration test、README に限定されている
+- `displayName` を省略した既存利用者の挙動が変わらない
+- AWS へデプロイする integration test の内容が明確である
+
+不明点があればエージェントへ質問し、計画を修正させます。納得できた場合だけ実装を承認してください。
+
+実装後は、エージェントが提示する diff と検証結果を確認します。integration test の実行は AWS リソースを作成するため、対象と削除方法の説明を受けてから明示的に承認してください。
+
+Pull Request の作成前には、提出先が `jaws-ug-cdk/aws-cdk-for-workshop` であることと、Issue #1 を参照していることを確認します。ファシリテーターの確認を受けるまで push や Pull Request 作成を承認しないでください。
+
+## 手動手順（トラブルシューティング用リファレンス）
 
 ### ブランチ作成
 
@@ -188,16 +211,17 @@ yarn test aws-sns/test/sns.test.ts
 バリデーションコードを追加した場合は、そのバリデーションに対するテストも追加します。
 
 今回は`displayName`が100文字を超える場合はエラーを返すバリデーションを追加したとします。
-CDKでのバリデーションには、`aws-cdk-lib/core`から提供されるカスタム`Error`クラスを用います。バリデーション実行箇所がConstruct内部の場合は`ValidationError`を、Construct外部の場合は`UnscopedValidationError`を使用します。
+CDKでのバリデーションには、`aws-cdk-lib/core`から提供されるカスタム`Error`クラスを用います。バリデーション実行箇所がConstruct内部の場合は`ValidationError`を、Construct外部の場合は`UnscopedValidationError`を使用します。エラーの第1引数には、`lit`タグ付きテンプレートリテラルでPascalCaseのエラーコードを指定します。
 
 今回のケースでは`Topic`コンストラクタ内でバリデーションを行うため、`ValidationError`を使用します。
 
 また、引数の型がstringまたはnumberの場合、Tokenが渡される可能性も考慮して、`Token.isUnresolved()`を使ったバリデーションも行います。詳しくはこちらの[ドキュメント](https://aws.amazon.com/jp/builders-flash/202406/cdk-validation/#03-01)を参照してください。
 
-```ts {6-8}
+```ts {7-9}
 // aws-cdk/packages/aws-cdk-lib/aws-sns/lib/topic.ts
-// aws-cdk-lib/core からValidationErrorをインポート
-import { ValidationError } from '../../core';
+// aws-cdk-lib/core から ValidationError と lit をインポート
+import { ValidationError } from '../../core/lib/errors';
+import { lit } from '../../core/lib/private/literal-string';
 
 export class Topic extends TopicBase {
   constructor(scope: Construct, id: string, props: TopicProps) {
@@ -205,7 +229,7 @@ export class Topic extends TopicBase {
 
     // displayNameが100文字を超える場合はエラー
     if (props.displayName && !Token.isUnresolved(props.displayName) && props.displayName.length > 100) {
-      throw new ValidationError(`displayName must be less than 100 characters, got ${props.displayName.length}`, this);
+      throw new ValidationError(lit`DisplayNameTooLong`, `displayName must be less than 100 characters, got ${props.displayName.length}`, this);
     }
 
     const resource = new CfnTopic(this, 'Resource', {
@@ -219,7 +243,7 @@ export class Topic extends TopicBase {
 testでは101文字の`displayName`を設定し、Errorがthrowされることを確認します。
 
 ```ts
-// aws-cdk/packages/aws-cdk-lib/aws-sns/test/topic.test.ts
+// aws-cdk/packages/aws-cdk-lib/aws-sns/test/sns.test.ts
 test('throw error when displayName is too long', () => {
   const stack = new Stack();
 
@@ -289,14 +313,16 @@ cdk bootstrap aws://{ACCOUNT_ID}/us-east-1
 
 ```sh
 # Topicクラスを含めたSNSのコンストラクトを再ビルド
-cd /packages/aws-cdk-lib
+cd packages/aws-cdk-lib
 yarn tsc
 
+# integ テスト側 (framework-integ) をビルドして javascript ファイルを生成
+cd ../..
+npx lerna run build --scope=@aws-cdk-testing/framework-integ
+
+# 実際に integration テストを実行する
 cd packages/@aws-cdk-testing/framework-integ
-# integ ファイルのビルド/トランスパイルをして、javascript ファイルを生成
-yarn tsc
-# 実際にinteg テストを実行する
-yarn integ aws-sns/test/integ.sns-display-name.js --update-on-failed
+yarn integ test/aws-sns/test/integ.sns-display-name.js --update-on-failed
 ```
 
 自動でCloudformationテンプレートの作成, スタックのデプロイ及び削除が行われます。エラーなく完了すれば統合テストも完了です。
@@ -328,7 +354,7 @@ const topic = new sns.Topic(this, 'Topic', {
 
 最後にPRを提出します。
 
-[PRルール](/cdk-conf-2024-contribute-workshop/2-コントリビュートの流れとルール/contribution-flow-rule/#pr-ルール)に則り、以下のようなPRを作成しましょう。
+[PRルール](/cdk-conf-2024-contribute-workshop/2-コントリビュートの流れとルール/contribution-flow-rule/#pull-request-ルール)に則り、以下のようなPRを作成しましょう。
 
 |項目|内容|記入例|
 |-|-|-|

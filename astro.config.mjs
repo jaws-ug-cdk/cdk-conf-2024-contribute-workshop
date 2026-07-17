@@ -1,12 +1,27 @@
 import { defineConfig } from "astro/config";
 
 import starlight from "@astrojs/starlight";
+import { rehypeMermaid } from "@beoe/rehype-mermaid";
 
 // https://astro.build/config
 export default defineConfig({
+  markdown: {
+    rehypePlugins: [
+      [
+        rehypeMermaid,
+        {
+          // Render diagrams to inline SVG at build time (no client-side JS).
+          strategy: "inline",
+          // Emit light/dark variants toggled by Starlight's html[data-theme].
+          darkScheme: "class",
+        },
+      ],
+    ],
+  },
   integrations: [
     starlight({
-      title: "AWS CDK Contribute Workshop",
+      title: "AWS CDK Contribute Workshop 2026",
+      customCss: ["./src/styles/mermaid.css"],
       // このサイトのデフォルト言語として日本語を設定します。
       locales: {
         // 日本語のドキュメントは`src/content/docs/ja/`に置きます。

@@ -1,0 +1,19 @@
+/* Toggle @beoe/rehype-mermaid light/dark diagrams with Starlight's theme switcher. */
+html[data-theme="light"] .beoe-dark {
+  display: none;
+}
+
+html[data-theme="dark"] .beoe-light {
+  display: none;
+}
+
+/* Center diagrams and keep them responsive. */
+.beoe {
+  display: flex;
+  justify-content: center;
+}
+
+.beoe svg {
+  max-width: 100%;
+  height: auto;
+}

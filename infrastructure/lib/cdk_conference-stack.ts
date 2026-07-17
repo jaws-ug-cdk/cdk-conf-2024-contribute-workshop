@@ -60,6 +60,12 @@ export class CdkConferenceStack extends cdk.Stack {
       "npm install -g yarn aws-cdk",
       // Install make and other build tools for setup of CDK
       "sudo dnf groupinstall -y 'Development Tools'",
+      // Install GitHub CLI from the official RPM repository
+      "sudo dnf install -y 'dnf-command(config-manager)'",
+      "sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo",
+      "sudo dnf install -y gh",
+      // Install Kiro CLI for ec2-user
+      "sudo -u ec2-user -H bash -c 'curl -fsSL https://cli.kiro.dev/install | bash'",
       // Increase memory for Node.js
       "echo 'export NODE_OPTIONS=--max-old-space-size=8192' >> /etc/profile.d/myenv.sh",
       "chmod +x /etc/profile.d/myenv.sh",

@@ -1,30 +1,38 @@
 ---
-title: AWS CDK Contribute Workshop
-description: 日本人 Community によって作成された AWS CDK へコントリビュートするまでの流れを体験できるワークショップです。
+title: AWS CDK Contribute Workshop 2026
+description: CDK Contribution Skill と Kiro CLI を活用し、AWS CDK へのコントリビューションを体験するワークショップです。
 ---
 
 ## 概要
 
-AWS CDK へコントリビュートするまでの流れを実際に体験できるワークショップコンテンツとなります。
+このワークショップでは、AI エージェント向けの [CDK Contribution Skill](https://github.com/cdklabs/cdk-contribution-skill) を利用して、GitHub Issue の分析、実装計画、コード変更、テスト、Pull Request の準備までを体験します。
+
+エージェントに作業を任せきるのではなく、コントリビューションの流れとルールを理解し、人間による承認とレビューを挟みながら進めます。
 
 ## 前提条件
 
 - Admin 相当の権限が使える AWS アカウントを持っていること
 - 本ワークショップで使用できる GitHub アカウントを持っていること
-- 上記 AWS アカウントで最大 3US ドル程度の課金額の発生にご理解いただけること
+- Kiro の利用登録とブラウザ認証ができること
+- TypeScript と Git の基本的なコードや操作を確認できること
+- 上記 AWS アカウントで最大 3 US ドル程度の課金が発生する可能性を理解していること
 
 ## ワークショップの流れ
 
-左のバーに表示された順番に沿って着手していきます。
+左のサイドバーに表示された順番で進めます。
 
-まずは、実際にコントリビュートを体験するための開発環境を、AWS アカウント上の EC2 に構築します。
+1. CDK Contribution Skill の目的と Human-in-the-loop の進め方を理解する
+2. EC2、VS Code、Kiro CLI、GitHub CLI、Skill を準備する
+3. AWS CDK のコントリビュートフローとルールを確認する
+4. 演習用 AWS CDK リポジトリをフォーク、クローン、ビルドする
+5. Issue #1 をエージェントと分析し、計画を承認して実装・検証する
+6. Issue #2 をより自律的に進める
+7. Pull Request の提出後、AWS 環境を削除する
 
-[環境構築](/cdk-conf-2024-contribute-workshop/1-環境構築/setup)ページへ飛んでみましょう。
+まずは [CDK Contribution Skill](/cdk-conf-2024-contribute-workshop/0-cdk-contribution-skill/introduction/) の説明から始めます。
 
 ## ワークショップ終了時の注意
 
-本ワークショップで作成した開発環境の EC2、またもしワークショップ中に作成した AWS リソースがあれば、放置すると料金がかかってしまうものがあります。
+本ワークショップで作成した EC2 と、integration test で作成した AWS リソースを放置すると料金が発生します。最後に必ずすべて削除してください。
 
-そのため、本ワークショップ終了時にはそれらのリソースは全て削除しましょう。
-
-詳細は、最後の[環境削除](/cdk-conf-2024-contribute-workshop/6-環境削除/env-deletion)ページをご覧下さい。
+詳細は[環境削除](/cdk-conf-2024-contribute-workshop/6-環境削除/env-deletion/)をご覧ください。

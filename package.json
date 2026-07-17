@@ -12,7 +12,9 @@
   "dependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/starlight": "^0.23.1",
+    "@beoe/rehype-mermaid": "0.4.2",
     "astro": "^4.8.6",
+    "playwright": "1.54.0",
     "typescript": "^5.4.5"
   }
 }
